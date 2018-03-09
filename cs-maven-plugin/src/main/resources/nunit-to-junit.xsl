@@ -12,17 +12,7 @@
 
 	<xsl:template match="/test-run">
 
-		<failsafe-summary result="{$nunit-result}" timeout="false">
-			<completed>
-				<xsl:value-of select="test-suite/@passed"/>
-			</completed>
-			<errors>0</errors>
-			<failures>
-				<xsl:value-of select="test-suite/@failed"/>
-			</failures>
-			<skipped>
-				<xsl:value-of select="test-suite/@skipped"/>
-			</skipped>
+		<failsafe-summary result="{$nunit-result}">
 		</failsafe-summary>
 
 		<xsl:apply-templates/>
@@ -40,7 +30,9 @@
 
 		<xsl:result-document href="/{$target-directory}/TEST-{@classname}.xml" method="xml" indent="yes">
 
-			<testsuite name="{@classname}" tests="{count(.//test-case)}" time="{@duration}" failures="{count(.//test-case/failure)}" errors="0" skipped="{count(.//test-case[@executed='False'])}">
+			<testsuite name="{@classname}" tests="{count(.//test-case)}" time="{@duration}"
+			           failures="{count(.//test-case/failure)}" errors="0"
+			           skipped="{count(.//test-case[@executed='False'])}">
 
 				<xsl:apply-templates/>
 
@@ -56,7 +48,8 @@
 			<xsl:variable name="generalfailure" select="failure"/>
 
 			<xsl:if test="failure">
-				<xsl:variable name="failstack" select="count(failure/stack-trace/*) + count(failure/stack-trace/text())"/>
+				<xsl:variable name="failstack"
+				              select="count(failure/stack-trace/*) + count(failure/stack-trace/text())"/>
 				<failure>
 					<xsl:choose>
 						<xsl:when test="$failstack &gt; 0 or not($generalfailure)"><![CDATA[

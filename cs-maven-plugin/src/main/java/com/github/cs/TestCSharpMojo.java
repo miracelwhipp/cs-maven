@@ -9,8 +9,10 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
@@ -50,7 +52,10 @@ public class TestCSharpMojo extends AbstractNetMojo {
 
 
 	@Parameter(readonly = true, defaultValue = "${project.build.testOutputDirectory}")
-	private File workingDirectory;
+	private File testOutputDirectory;
+
+	@Parameter(defaultValue = "${project.build.testOutputDirectory}")
+	private File testWorkingDirectory;
 
 	@Parameter(readonly = true, defaultValue = "${project.artifactId}-${project.version}-tests.dll")
 	private String testLibrary;
@@ -75,6 +80,12 @@ public class TestCSharpMojo extends AbstractNetMojo {
 
 	@Parameter(readonly = true, defaultValue = "${project.build.directory}")
 	private File targetDirectory;
+
+	@Parameter
+	private Map<String, String> additionalVariables = new HashMap<>();
+
+	@Parameter(defaultValue = "false")
+	private boolean executeTests32bit;
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
@@ -115,13 +126,20 @@ public class TestCSharpMojo extends AbstractNetMojo {
 			}
 
 
-			File testLibraryFile = new File(workingDirectory, testLibrary);
+			File testLibraryFile = new File(testOutputDirectory, testLibrary);
 
 			if (!testLibraryFile.exists()) {
 
 				getLog().info("Test library file (" + testLibraryFile.getAbsolutePath() + ") does not exist. Tests execution skipped.");
 				return;
 			}
+
+			if (!testWorkingDirectory.equals(testOutputDirectory)) {
+
+				copyToLib(testLibraryFile);
+				testLibraryFile = new File(testWorkingDirectory, testLibrary);
+			}
+
 
 			String condition = buildCondition(deNullify(includes), deNullify(excludes));
 
@@ -130,7 +148,8 @@ public class TestCSharpMojo extends AbstractNetMojo {
 			File runner = frameworkProvider.getNUnitRunner();
 
 			ProcessBuilder builder = new ProcessBuilder(runner.getPath());
-			builder.directory(workingDirectory);
+			builder.directory(testWorkingDirectory);
+			builder.environment().putAll(additionalVariables);
 
 			builder.command().add(testLibraryFile.getAbsolutePath());
 
@@ -140,6 +159,11 @@ public class TestCSharpMojo extends AbstractNetMojo {
 			}
 
 			builder.command().add("--result:" + new File(reportsDirectory, TEST_RESULT_FILE).getAbsolutePath());
+
+			if (executeTests32bit) {
+
+				builder.command().add("-x86");
+			}
 
 			copyToLib(frameworkProvider.getNUnitLibrary());
 
@@ -207,7 +231,7 @@ public class TestCSharpMojo extends AbstractNetMojo {
 	private void copyToLib(File file) throws IOException {
 
 		try (InputStream source = new FileInputStream(file);
-		     OutputStream target = new FileOutputStream(new File(workingDirectory, file.getName()))) {
+		     OutputStream target = new FileOutputStream(new File(testWorkingDirectory, file.getName()))) {
 
 			byte[] buffer = new byte[128 * 1024];
 
