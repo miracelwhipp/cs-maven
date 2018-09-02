@@ -14,16 +14,16 @@
 						<id>default</id>
 						<phases>
 							<generate-sources>
-								com.github.cs:cs-maven-plugin:${project.version}:generate-assembly-info
+								${project.groupId}:${project.artifactId}:${project.version}:generate-assembly-info
 							</generate-sources>
 							<compile>
-								com.github.cs:cs-maven-plugin:${project.version}:compile
+								${project.groupId}:${project.artifactId}:${project.version}:compile
 							</compile>
 							<test-compile>
-								com.github.cs:cs-maven-plugin:test-compile
+								${project.groupId}:${project.artifactId}:test-compile
 							</test-compile>
 							<test>
-								com.github.cs:cs-maven-plugin:test
+								${project.groupId}:${project.artifactId}:test
 							</test>
 							<install>
 								org.apache.maven.plugins:maven-install-plugin:install
@@ -63,19 +63,19 @@
 						<id>default</id>
 						<phases>
 							<generate-sources>
-								com.github.cs:cs-maven-plugin:${project.version}:generate-assembly-info
+								${project.groupId}:${project.artifactId}:${project.version}:generate-assembly-info
 							</generate-sources>
 							<compile>
-								com.github.cs:cs-maven-plugin:${project.version}:compile
+								${project.groupId}:${project.artifactId}:${project.version}:compile
 							</compile>
 							<process-classes>
-								com.github.cs:cs-maven-plugin:${project.version}:reg-asm
+								${project.groupId}:${project.artifactId}:${project.version}:reg-asm
 							</process-classes>
 							<test-compile>
-								com.github.cs:cs-maven-plugin:test-compile
+								${project.groupId}:${project.artifactId}:test-compile
 							</test-compile>
 							<test>
-								com.github.cs:cs-maven-plugin:test
+								${project.groupId}:${project.artifactId}:test
 							</test>
 							<install>
 								org.apache.maven.plugins:maven-install-plugin:install

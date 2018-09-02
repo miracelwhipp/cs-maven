@@ -1,20 +1,16 @@
-package com.github.cs.compile;
+package io.github.miracelwhipp.net.cs.plugin.compile;
 
-import com.github.cs.CSharpCompilerProvider;
-import com.github.cs.DependencyProvider;
-import com.github.cs.NetFrameworkProvider;
+import io.github.miracelwhipp.net.common.DependencyProvider;
+import io.github.miracelwhipp.net.provider.CSharpCompilerProvider;
+import io.github.miracelwhipp.net.provider.NetFrameworkProvider;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**

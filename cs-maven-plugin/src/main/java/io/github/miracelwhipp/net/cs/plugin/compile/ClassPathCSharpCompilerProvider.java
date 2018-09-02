@@ -1,7 +1,7 @@
-package com.github.cs.compile;
+package io.github.miracelwhipp.net.cs.plugin.compile;
 
-import com.github.cs.CSharpCompilerProvider;
-import com.github.cs.Streams;
+import io.github.miracelwhipp.net.common.Streams;
+import io.github.miracelwhipp.net.provider.CSharpCompilerProvider;
 import org.codehaus.plexus.component.annotations.Component;
 
 import java.io.File;

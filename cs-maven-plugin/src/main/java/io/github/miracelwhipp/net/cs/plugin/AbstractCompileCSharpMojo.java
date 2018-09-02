@@ -1,9 +1,10 @@
-package com.github.cs;
+package io.github.miracelwhipp.net.cs.plugin;
 
-import com.github.cs.compile.AssemblyFileProperties;
-import com.github.cs.compile.CSharpCompiler;
-import com.github.cs.compile.CSharpCompilerOptions;
-import com.github.cs.compile.SourceFiles;
+import io.github.miracelwhipp.net.common.DependencyProvider;
+import io.github.miracelwhipp.net.cs.plugin.compile.AssemblyFileProperties;
+import io.github.miracelwhipp.net.cs.plugin.compile.CSharpCompiler;
+import io.github.miracelwhipp.net.cs.plugin.compile.CSharpCompilerOptions;
+import io.github.miracelwhipp.net.cs.plugin.compile.SourceFiles;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.DependencyResolutionException;

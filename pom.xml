@@ -53,6 +53,7 @@
 		<module>cs-maven-plugin</module>
 		<module>nuget-cs-compiler</module>
 		<module>xunit-runner</module>
+		<module>xunit</module>
 	</modules>
 
 	<dependencyManagement>
@@ -192,6 +193,9 @@
 						<goals>
 							<goal>jar</goal>
 						</goals>
+						<configuration>
+							<failOnError>false</failOnError>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

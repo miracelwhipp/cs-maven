@@ -1,4 +1,4 @@
-package com.github.cs.compile;
+package io.github.miracelwhipp.net.cs.plugin.compile;
 
 import java.util.List;
 

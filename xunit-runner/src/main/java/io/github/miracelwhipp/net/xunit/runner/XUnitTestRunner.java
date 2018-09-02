@@ -1,12 +1,10 @@
-package com.github.cs.xunit;
+package io.github.miracelwhipp.net.xunit.runner;
 
-import com.github.cs.NetTestRunner;
-import com.github.cs.Streams;
-import com.github.cs.TestExecutionException;
-import com.github.cs.Xml;
+import io.github.miracelwhipp.net.common.Streams;
+import io.github.miracelwhipp.net.common.Xml;
+import io.github.miracelwhipp.net.provider.NetTestRunner;
+import io.github.miracelwhipp.net.provider.TestExecutionException;
 import org.codehaus.plexus.logging.Logger;
-import org.codehaus.plexus.util.IOUtil;
-import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

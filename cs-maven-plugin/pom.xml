@@ -27,7 +27,7 @@
 			<artifactId>nuget-maven-plugin</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.github.miracelwhipp.net.xunit</groupId>
+			<groupId>io.github.miracelwhipp.net.xunit.runner</groupId>
 			<artifactId>net-xunit-runner</artifactId>
 			<version>${project.version}</version>
 		</dependency>

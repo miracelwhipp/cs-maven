@@ -1,4 +1,4 @@
-package com.github.cs;
+package io.github.miracelwhipp.net.cs.plugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +14,12 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
 
-import com.github.cs.registry.TestRunnerFactoryRegistry;
+import io.github.miracelwhipp.net.common.DependencyProvider;
+import io.github.miracelwhipp.net.common.Xml;
+import io.github.miracelwhipp.net.cs.plugin.registry.TestRunnerFactoryRegistry;
+import io.github.miracelwhipp.net.provider.NetTestRunner;
+import io.github.miracelwhipp.net.provider.NetTestRunnerFactory;
+import io.github.miracelwhipp.net.provider.TestExecutionException;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Component;

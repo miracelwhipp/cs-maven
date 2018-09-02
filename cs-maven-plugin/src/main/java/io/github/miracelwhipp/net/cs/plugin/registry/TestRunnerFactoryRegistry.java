@@ -1,6 +1,6 @@
-package com.github.cs.registry;
+package io.github.miracelwhipp.net.cs.plugin.registry;
 
-import com.github.cs.NetTestRunnerFactory;
+import io.github.miracelwhipp.net.provider.NetTestRunnerFactory;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 

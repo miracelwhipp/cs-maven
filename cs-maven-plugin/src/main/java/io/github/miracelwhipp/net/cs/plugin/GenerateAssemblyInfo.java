@@ -1,4 +1,4 @@
-package com.github.cs;
+package io.github.miracelwhipp.net.cs.plugin;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.maven.plugin.MojoExecutionException;

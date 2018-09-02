@@ -1,9 +1,9 @@
-package com.github.cs.registry;
+package io.github.miracelwhipp.net.cs.plugin.registry;
 
-import com.github.cs.FrameworkVersion;
-import com.github.cs.NetFrameworkProvider;
-import com.github.cs.Streams;
-import com.github.cs.Xml;
+import io.github.miracelwhipp.net.common.Streams;
+import io.github.miracelwhipp.net.common.Xml;
+import io.github.miracelwhipp.net.provider.FrameworkVersion;
+import io.github.miracelwhipp.net.provider.NetFrameworkProvider;
 import org.codehaus.plexus.component.annotations.Component;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;

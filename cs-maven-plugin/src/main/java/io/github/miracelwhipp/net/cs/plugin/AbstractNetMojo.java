@@ -1,4 +1,4 @@
-package com.github.cs;
+package io.github.miracelwhipp.net.cs.plugin;
 
 import java.io.File;
 import java.util.Collections;
@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import io.github.miracelwhipp.net.common.DependencyProvider;
+import io.github.miracelwhipp.net.provider.CSharpCompilerProvider;
+import io.github.miracelwhipp.net.provider.NetFrameworkProvider;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;

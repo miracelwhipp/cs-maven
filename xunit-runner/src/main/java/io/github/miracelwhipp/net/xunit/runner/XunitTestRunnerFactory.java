@@ -1,7 +1,7 @@
-package com.github.cs.xunit;
+package io.github.miracelwhipp.net.xunit.runner;
 
-import com.github.cs.NetTestRunner;
-import com.github.cs.NetTestRunnerFactory;
+import io.github.miracelwhipp.net.provider.NetTestRunner;
+import io.github.miracelwhipp.net.provider.NetTestRunnerFactory;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.Logger;

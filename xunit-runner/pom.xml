@@ -10,7 +10,7 @@
 		<version>2.0-SNAPSHOT</version>
 	</parent>
 
-	<groupId>io.github.miracelwhipp.net.xunit</groupId>
+	<groupId>io.github.miracelwhipp.net.xunit.runner</groupId>
 	<artifactId>net-xunit-runner</artifactId>
 
 	<dependencies>
@@ -33,22 +33,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>xunit.assert</groupId>
-			<artifactId>xunit.assert</artifactId>
+			<groupId>xunit.runner.console</groupId>
+			<artifactId>xunit.runner.console</artifactId>
 			<version>${xunit.version}</version>
-			<type>dll</type>
-		</dependency>
-		<dependency>
-			<groupId>xunit.extensibility.core</groupId>
-			<artifactId>xunit.core</artifactId>
-			<version>${xunit.version}</version>
-			<type>dll</type>
-		</dependency>
-		<dependency>
-			<groupId>xunit.extensibility.execution</groupId>
-			<artifactId>xunit.execution.dotnet</artifactId>
-			<version>${xunit.version}</version>
-			<type>dll</type>
 		</dependency>
 	</dependencies>
 
@@ -59,7 +46,6 @@
 			<url>nuget://api.nuget.org/v3-flatcontainer/</url>
 		</repository>
 	</repositories>
-
 
 	<build>
 		<plugins>

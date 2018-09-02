@@ -1,9 +1,10 @@
-package com.github.cs;
+package io.github.miracelwhipp.net.cs.plugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import io.github.miracelwhipp.net.common.DependencyProvider;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
