@@ -16,18 +16,15 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.github.miracelwhipp.net.common</groupId>
-			<artifactId>net-maven-common</artifactId>
-			<version>${project.version}</version>
+			<artifactId>net-common</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.github.miracelwhipp.net.provider</groupId>
 			<artifactId>net-framework-provider-api</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.github.miracelwhipp.net.nuget.plugin</groupId>
 			<artifactId>nuget-maven-plugin</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.github.miracelwhipp.net.xunit</groupId>

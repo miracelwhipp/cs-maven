@@ -16,13 +16,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.github.miracelwhipp.net.common</groupId>
-			<artifactId>net-maven-common</artifactId>
-			<version>${project.version}</version>
+			<artifactId>net-common</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.github.miracelwhipp.net.provider</groupId>
 			<artifactId>net-framework-provider-api</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
@@ -33,10 +31,44 @@
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-plugin-api</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>xunit.assert</groupId>
+			<artifactId>xunit.assert</artifactId>
+			<version>${xunit.version}</version>
+			<type>dll</type>
+		</dependency>
+		<dependency>
+			<groupId>xunit.extensibility.core</groupId>
+			<artifactId>xunit.core</artifactId>
+			<version>${xunit.version}</version>
+			<type>dll</type>
+		</dependency>
+		<dependency>
+			<groupId>xunit.extensibility.execution</groupId>
+			<artifactId>xunit.execution.dotnet</artifactId>
+			<version>${xunit.version}</version>
+			<type>dll</type>
+		</dependency>
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>nuget</id>
+			<name>microsoft nuget repository</name>
+			<url>nuget://api.nuget.org/v3-flatcontainer/</url>
+		</repository>
+	</repositories>
+
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>io.github.miracelwhipp.net.nuget.plugin</groupId>
+				<artifactId>nuget-maven-plugin</artifactId>
+				<version>${net.common.version}</version>
+				<extensions>true</extensions>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.plexus</groupId>
 				<artifactId>plexus-component-metadata</artifactId>
@@ -56,29 +88,29 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>get-xunit-runner</id>
-						<phase>prepare-package</phase>
-						<configuration>
-							<tasks>
-								<echo message="getting xunit runner"/>
-								<get
-										src="https://api.nuget.org/v3-flatcontainer/xunit.runner.console/${xunit.version}/xunit.runner.console.${xunit.version}.nupkg"
-										dest="${project.build.directory}/xunit.runner.console.zip"
-								/>
-								<unzip src="${project.build.directory}/xunit.runner.console.zip"
-								       dest="${project.build.outputDirectory}"/>
-							</tasks>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+			<!--<plugin>-->
+			<!--<artifactId>maven-antrun-plugin</artifactId>-->
+			<!--<executions>-->
+			<!--<execution>-->
+			<!--<id>get-xunit-runner</id>-->
+			<!--<phase>prepare-package</phase>-->
+			<!--<configuration>-->
+			<!--<tasks>-->
+			<!--<echo message="getting xunit runner"/>-->
+			<!--<get-->
+			<!--src="https://api.nuget.org/v3-flatcontainer/xunit.runner.console/${xunit.version}/xunit.runner.console.${xunit.version}.nupkg"-->
+			<!--dest="${project.build.directory}/xunit.runner.console.zip"-->
+			<!--/>-->
+			<!--<unzip src="${project.build.directory}/xunit.runner.console.zip"-->
+			<!--dest="${project.build.outputDirectory}"/>-->
+			<!--</tasks>-->
+			<!--</configuration>-->
+			<!--<goals>-->
+			<!--<goal>run</goal>-->
+			<!--</goals>-->
+			<!--</execution>-->
+			<!--</executions>-->
+			<!--</plugin>-->
 		</plugins>
 	</build>
 

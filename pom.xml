@@ -32,6 +32,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xunit.version>2.4.0</xunit.version>
+		<net.common.version>2.0-SNAPSHOT</net.common.version>
 	</properties>
 
 	<scm>
@@ -50,17 +51,35 @@
 
 	<modules>
 		<module>cs-maven-plugin</module>
-		<module>framework-provider-api</module>
+		<!--<module>framework-provider-api</module>-->
 		<module>nuget-cs-compiler</module>
-		<module>nuget-maven-plugin</module>
-		<module>cs-maven-common</module>
+		<!--<module>nuget-maven-plugin</module>-->
+		<!--<module>cs-maven-common</module>-->
 		<module>xunit-runner</module>
 		<!--<module>nunit-runner</module>-->
-		<module>xunit</module>
+		<!--<module>xunit</module>-->
 	</modules>
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>io.github.miracelwhipp.net.common</groupId>
+				<artifactId>net-common</artifactId>
+				<version>${net.common.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.miracelwhipp.net.provider</groupId>
+				<artifactId>net-framework-provider-api</artifactId>
+				<version>${net.common.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.miracelwhipp.net.nuget.plugin</groupId>
+				<artifactId>nuget-maven-plugin</artifactId>
+				<version>${net.common.version}</version>
+			</dependency>
+
+
+
 			<dependency>
 				<groupId>org.apache.maven.plugin-tools</groupId>
 				<artifactId>maven-plugin-annotations</artifactId>
