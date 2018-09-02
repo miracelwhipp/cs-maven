@@ -49,36 +49,6 @@
 				<version>${net.common.version}</version>
 				<extensions>true</extensions>
 			</plugin>
-			<!--<plugin>-->
-			<!--<artifactId>maven-antrun-plugin</artifactId>-->
-			<!--<executions>-->
-			<!--<execution>-->
-			<!--<id>get-compilers-and-runtime-runner</id>-->
-			<!--<phase>prepare-package</phase>-->
-			<!--<configuration>-->
-			<!--<tasks>-->
-			<!--<echo message="getting compilers"/>-->
-			<!--<get-->
-			<!--src="https://api.nuget.org/v3-flatcontainer/microsoft.net.compilers/${microsoft.net.compilers.version}/microsoft.net.compilers.${microsoft.net.compilers.version}.nupkg"-->
-			<!--dest="${project.build.directory}/microsoft.net.compilers.zip"-->
-			<!--/>-->
-			<!--<unzip src="${project.build.directory}/microsoft.net.compilers.zip"-->
-			<!--dest="${project.build.outputDirectory}"/>-->
-			<!--<echo message="getting runtime library"/>-->
-			<!--<get-->
-			<!--src="https://api.nuget.org/v3-flatcontainer/NETStandard.Library/${netstandard.library.version}/NETStandard.Library.${netstandard.library.version}.nupkg"-->
-			<!--dest="${project.build.directory}/NETStandard.Library.zip"-->
-			<!--/>-->
-			<!--<unzip src="${project.build.directory}/NETStandard.Library.zip"-->
-			<!--dest="${project.build.outputDirectory}"/>-->
-			<!--</tasks>-->
-			<!--</configuration>-->
-			<!--<goals>-->
-			<!--<goal>run</goal>-->
-			<!--</goals>-->
-			<!--</execution>-->
-			<!--</executions>-->
-			<!--</plugin>-->
 		</plugins>
 	</build>
 </project>

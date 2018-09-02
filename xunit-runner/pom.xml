@@ -88,29 +88,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--<plugin>-->
-			<!--<artifactId>maven-antrun-plugin</artifactId>-->
-			<!--<executions>-->
-			<!--<execution>-->
-			<!--<id>get-xunit-runner</id>-->
-			<!--<phase>prepare-package</phase>-->
-			<!--<configuration>-->
-			<!--<tasks>-->
-			<!--<echo message="getting xunit runner"/>-->
-			<!--<get-->
-			<!--src="https://api.nuget.org/v3-flatcontainer/xunit.runner.console/${xunit.version}/xunit.runner.console.${xunit.version}.nupkg"-->
-			<!--dest="${project.build.directory}/xunit.runner.console.zip"-->
-			<!--/>-->
-			<!--<unzip src="${project.build.directory}/xunit.runner.console.zip"-->
-			<!--dest="${project.build.outputDirectory}"/>-->
-			<!--</tasks>-->
-			<!--</configuration>-->
-			<!--<goals>-->
-			<!--<goal>run</goal>-->
-			<!--</goals>-->
-			<!--</execution>-->
-			<!--</executions>-->
-			<!--</plugin>-->
 		</plugins>
 	</build>
 

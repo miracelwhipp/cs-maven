@@ -51,13 +51,8 @@
 
 	<modules>
 		<module>cs-maven-plugin</module>
-		<!--<module>framework-provider-api</module>-->
 		<module>nuget-cs-compiler</module>
-		<!--<module>nuget-maven-plugin</module>-->
-		<!--<module>cs-maven-common</module>-->
 		<module>xunit-runner</module>
-		<!--<module>nunit-runner</module>-->
-		<!--<module>xunit</module>-->
 	</modules>
 
 	<dependencyManagement>
