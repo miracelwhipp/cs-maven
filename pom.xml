@@ -49,12 +49,25 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+	<repositories>
+		<repository>
+			<id>ossrh</id>
+			<name>ossrh</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
+
 	<modules>
 		<module>cs-maven-plugin</module>
 		<module>nuget-cs-compiler</module>
 		<module>xunit-runner</module>
 		<module>xunit</module>
 	</modules>
+
 
 	<dependencyManagement>
 		<dependencies>
@@ -73,7 +86,6 @@
 				<artifactId>nuget-maven-plugin</artifactId>
 				<version>${net.common.version}</version>
 			</dependency>
-
 
 
 			<dependency>
@@ -143,7 +155,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -238,6 +249,4 @@
 			</build>
 		</profile>
 	</profiles>
-
-
 </project>
