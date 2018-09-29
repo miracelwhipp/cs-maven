@@ -3,7 +3,7 @@
 if [ "$TRAVIS_BRANCH" = 'master' ] && [ "$TRAVIS_PULL_REQUEST" == 'false' ]; then
 
     mvn deploy --settings deployment/settings.xml -e
-	exit
+ 	exit
 
 else
 
