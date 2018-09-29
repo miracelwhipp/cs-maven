@@ -32,7 +32,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xunit.version>2.4.0</xunit.version>
-		<net.common.version>2.0-SNAPSHOT</net.common.version>
+		<net.common.version>2.0</net.common.version>
 	</properties>
 
 	<scm>
@@ -177,6 +177,10 @@
 						<source>1.7</source>
 						<target>1.7</target>
 					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>1.6</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-antrun-plugin</artifactId>
