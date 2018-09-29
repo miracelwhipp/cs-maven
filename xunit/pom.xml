@@ -43,6 +43,16 @@
 		</repository>
 	</repositories>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>io.github.miracelwhipp.net.nuget.plugin</groupId>
+				<artifactId>nuget-maven-plugin</artifactId>
+				<version>${net.common.version}</version>
+				<extensions>true</extensions>
+			</plugin>
+		</plugins>
+	</build>
 
 
 </project>
