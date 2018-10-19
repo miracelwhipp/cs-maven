@@ -20,6 +20,7 @@ import java.util.List;
  */
 public class CSharpCompiler {
 
+	private final File runtimeWrapper;
 	private final SourceFiles sourceFiles;
 	private final CSharpCompilerOptions compilerOptions;
 	private final AssemblyFileProperties assemblyFileProperties;
@@ -30,13 +31,15 @@ public class CSharpCompiler {
 
 
 	public CSharpCompiler(
-			SourceFiles sourceFiles,
+
+			File runtimeWrapper, SourceFiles sourceFiles,
 			CSharpCompilerOptions compilerOptions,
 			AssemblyFileProperties assemblyFileProperties,
 			Log logger,
 			NetFrameworkProvider frameworkProvider,
 			CSharpCompilerProvider compilerProvider
 	) {
+		this.runtimeWrapper = runtimeWrapper;
 		this.sourceFiles = sourceFiles;
 		this.compilerOptions = compilerOptions;
 		this.assemblyFileProperties = assemblyFileProperties;
@@ -51,7 +54,11 @@ public class CSharpCompiler {
 
 			File compilerExecutable = compilerProvider.getCSharpCompiler();
 
-			ProcessBuilder processBuilder = new ProcessBuilder(compilerExecutable.getPath());
+			ProcessBuilder processBuilder = runtimeWrapper == null ?
+					new ProcessBuilder() :
+					new ProcessBuilder(runtimeWrapper.getAbsolutePath());
+
+			processBuilder.command().add(compilerExecutable.getPath());
 
 			processBuilder.command().add("/nostdlib");
 			processBuilder.command().add("/noconfig");
