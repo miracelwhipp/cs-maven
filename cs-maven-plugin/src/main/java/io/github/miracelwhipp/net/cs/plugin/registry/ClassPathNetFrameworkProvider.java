@@ -18,7 +18,7 @@ import java.io.IOException;
  *
  * @author miracelwhipp
  */
-@Component(role = NetFrameworkProvider.class, hint = "default", instantiationStrategy = "singleton")
+@Component(role = NetFrameworkProvider.class, hint = "class-path", instantiationStrategy = "singleton")
 public class ClassPathNetFrameworkProvider implements NetFrameworkProvider {
 
 	private FrameworkVersion version = null;

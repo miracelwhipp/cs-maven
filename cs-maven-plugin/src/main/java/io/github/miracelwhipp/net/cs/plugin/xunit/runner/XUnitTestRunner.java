@@ -1,9 +1,13 @@
-package io.github.miracelwhipp.net.xunit.runner;
+package io.github.miracelwhipp.net.cs.plugin.xunit.runner;
 
 import io.github.miracelwhipp.net.common.Streams;
 import io.github.miracelwhipp.net.common.Xml;
+import io.github.miracelwhipp.net.cs.plugin.BootstrapNuGetWagon;
+import io.github.miracelwhipp.net.cs.plugin.NuGetBootstrapDownloader;
+import io.github.miracelwhipp.net.nuget.plugin.NugetArtifact;
 import io.github.miracelwhipp.net.provider.NetTestRunner;
 import io.github.miracelwhipp.net.provider.TestExecutionException;
+import org.apache.maven.execution.MavenSession;
 import org.codehaus.plexus.logging.Logger;
 import org.xml.sax.SAXException;
 
@@ -13,6 +17,7 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.List;
 
 /**
@@ -22,12 +27,26 @@ import java.util.List;
  */
 public class XUnitTestRunner implements NetTestRunner {
 
+	private static final NugetArtifact COMPILER_CONTAINER_ARTIFACT = NugetArtifact.newInstance(
+			"xunit.runner.console",
+			"xunit.runner.console",
+			"2.4.0",
+			"",
+			"nupkg"
+	);
+
+
 	public static final String NET_472_SUB_DIRECTORY = "tools/net472";
+
+	private final BootstrapNuGetWagon wagon;
+	private final MavenSession session;
 	private final File workingDirectory;
 	private final Logger logger;
 
 
-	public XUnitTestRunner(File workingDirectory, Logger logger) {
+	public XUnitTestRunner(BootstrapNuGetWagon wagon, MavenSession session, File workingDirectory, Logger logger) {
+		this.wagon = wagon;
+		this.session = session;
 		this.workingDirectory = workingDirectory;
 		this.logger = logger;
 	}
@@ -95,15 +114,24 @@ public class XUnitTestRunner implements NetTestRunner {
 
 		try {
 
-			Streams.loadResource(XUnitTestRunner.class, NET_472_SUB_DIRECTORY, "xunit.console.exe", parentFile);
-			Streams.loadResource(XUnitTestRunner.class, NET_472_SUB_DIRECTORY, "xunit.abstractions.dll", parentFile);
-			Streams.loadResource(XUnitTestRunner.class, NET_472_SUB_DIRECTORY, "xunit.runner.reporters.net452.dll", parentFile);
-			Streams.loadResource(XUnitTestRunner.class, NET_472_SUB_DIRECTORY, "xunit.runner.utility.net452.dll", parentFile);
+			File container = NuGetBootstrapDownloader.get(wagon, session, COMPILER_CONTAINER_ARTIFACT);
+
+			link(parentFile, container, "xunit.console.exe");
+			link(parentFile, container, "xunit.abstractions.dll");
+			link(parentFile, container, "xunit.runner.reporters.net452.dll");
+			link(parentFile, container, "xunit.runner.utility.net452.dll");
 
 		} catch (IOException e) {
 
 			throw new TestExecutionException(e);
 		}
 
+	}
+
+	private void link(File parentFile, File container, String filename) throws IOException {
+
+		File file = Streams.unpackForFile(container, new File(NET_472_SUB_DIRECTORY, filename));
+
+		Files.createLink(new File(parentFile, file.getName()).toPath(), file.toPath());
 	}
 }

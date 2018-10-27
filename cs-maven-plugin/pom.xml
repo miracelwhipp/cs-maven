@@ -26,16 +26,6 @@
 			<artifactId>nuget-maven-plugin</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.github.miracelwhipp.net.xunit.runner</groupId>
-			<artifactId>net-xunit-runner</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.github.miracelwhipp.net.cs.compiler.nuget</groupId>
-			<artifactId>net-cs-nuget-compiler</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.maven.plugin-tools</groupId>
 			<artifactId>maven-plugin-annotations</artifactId>
 		</dependency>
@@ -75,7 +65,6 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 		</dependency>
-
 	</dependencies>
 
 

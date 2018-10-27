@@ -1,7 +1,9 @@
-package io.github.miracelwhipp.net.xunit.runner;
+package io.github.miracelwhipp.net.cs.plugin.xunit.runner;
 
+import io.github.miracelwhipp.net.cs.plugin.BootstrapNuGetWagon;
 import io.github.miracelwhipp.net.provider.NetTestRunner;
 import io.github.miracelwhipp.net.provider.NetTestRunnerFactory;
+import org.apache.maven.execution.MavenSession;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.Logger;
@@ -19,9 +21,15 @@ public class XunitTestRunnerFactory implements NetTestRunnerFactory {
 	@Requirement
 	private Logger logger;
 
+	@Requirement
+	private BootstrapNuGetWagon wagon;
+
+	@Requirement
+	private MavenSession session;
+
 
 	@Override
 	public NetTestRunner newRunnerForDirectory(File workingDirectory) {
-		return new XUnitTestRunner(workingDirectory, logger);
+		return new XUnitTestRunner(wagon, session, workingDirectory, logger);
 	}
 }

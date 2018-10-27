@@ -31,7 +31,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xunit.version>2.4.0</xunit.version>
-		<net.common.version>2.0</net.common.version>
+		<net.common.version>2.1-SNAPSHOT</net.common.version>
 	</properties>
 
 	<scm>
@@ -73,8 +73,6 @@
 
 	<modules>
 		<module>cs-maven-plugin</module>
-		<module>nuget-cs-compiler</module>
-		<module>xunit-runner</module>
 		<module>xunit</module>
 	</modules>
 
@@ -94,6 +92,11 @@
 			<dependency>
 				<groupId>io.github.miracelwhipp.net.nuget.plugin</groupId>
 				<artifactId>nuget-maven-plugin</artifactId>
+				<version>${net.common.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.miracelwhipp.net.nuget.common</groupId>
+				<artifactId>net-nuget-common</artifactId>
 				<version>${net.common.version}</version>
 			</dependency>
 
@@ -123,7 +126,6 @@
 				<groupId>org.apache.maven.wagon</groupId>
 				<artifactId>wagon-provider-api</artifactId>
 				<version>2.6</version>
-				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.maven.wagon</groupId>
