@@ -29,7 +29,7 @@ public class XunitTestRunnerFactory implements NetTestRunnerFactory {
 
 
 	@Override
-	public NetTestRunner newRunnerForDirectory(File workingDirectory) {
-		return new XUnitTestRunner(wagon, session, workingDirectory, logger);
+	public NetTestRunner newRunnerForDirectory(File workingDirectory, File runtimeWrapperExecutable) {
+		return new XUnitTestRunner(wagon, session, runtimeWrapperExecutable, workingDirectory, logger);
 	}
 }

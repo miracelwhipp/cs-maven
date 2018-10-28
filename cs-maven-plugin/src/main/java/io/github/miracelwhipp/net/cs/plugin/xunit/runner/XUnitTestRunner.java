@@ -40,13 +40,15 @@ public class XUnitTestRunner implements NetTestRunner {
 
 	private final BootstrapNuGetWagon wagon;
 	private final MavenSession session;
+	private final File runtimeWrapperExecutable;
 	private final File workingDirectory;
 	private final Logger logger;
 
 
-	public XUnitTestRunner(BootstrapNuGetWagon wagon, MavenSession session, File workingDirectory, Logger logger) {
+	public XUnitTestRunner(BootstrapNuGetWagon wagon, MavenSession session, File runtimeWrapperExecutable, File workingDirectory, Logger logger) {
 		this.wagon = wagon;
 		this.session = session;
+		this.runtimeWrapperExecutable = runtimeWrapperExecutable;
 		this.workingDirectory = workingDirectory;
 		this.logger = logger;
 	}
@@ -60,8 +62,15 @@ public class XUnitTestRunner implements NetTestRunner {
 
 			extractRunnerFiles(testLibrary.getParentFile());
 
-			ProcessBuilder builder = new ProcessBuilder(new File(testLibrary.getParentFile(), "xunit.console.exe").getAbsolutePath());
+			ProcessBuilder builder = new ProcessBuilder();
+
 			builder.directory(workingDirectory);
+
+			if (runtimeWrapperExecutable != null) {
+				builder.command().add(runtimeWrapperExecutable.getAbsolutePath());
+			}
+
+			builder.command().add(new File(testLibrary.getParentFile(), "xunit.console.exe").getAbsolutePath());
 
 			builder.command().add(testLibrary.getAbsolutePath());
 

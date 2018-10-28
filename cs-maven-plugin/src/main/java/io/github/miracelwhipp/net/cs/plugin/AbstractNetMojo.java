@@ -44,20 +44,20 @@ public abstract class AbstractNetMojo extends AbstractMojo {
 	@Parameter(defaultValue = "false", property = "cs.assembly.com.visible")
 	protected boolean comVisible;
 
-	@Parameter(defaultValue = "")
-	protected Map<String, String> frameworkProviderConfiguration;
-
 	@Parameter(defaultValue = "default")
 	protected String netFrameworkRoleHint;
 
 	@Component
 	protected NetFrameworkProvider frameworkProvider;
+	/**
+	 * This parameter defines a wrapper process that provides a .net runtime e.g. mono. Leave empty to
+	 * omit using mono.
+	 */
+	@Parameter(property = "net.runtime.wrapper.executable")
+	protected File runtimeWrapperExecutable;
 
 	@Parameter(defaultValue = "default")
 	private String compilerRoleHint;
-
-	@Parameter
-	private Map<String, String> compilerProviderFactoryConfiguration;
 
 	@Parameter(readonly = true, defaultValue = "${project.build.directory}")
 	protected File workingDirectory;

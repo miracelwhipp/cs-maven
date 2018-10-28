@@ -134,7 +134,8 @@ public class TestCSharpMojo extends AbstractNetMojo {
 				DependencyProvider.provideFile(testDependency, workingDirectory);
 			}
 
-			NetTestRunner testRunner = getTestRunnerFactory().newRunnerForDirectory(workingDirectory);
+			NetTestRunner testRunner = getTestRunnerFactory().
+					newRunnerForDirectory(workingDirectory, runtimeWrapperExecutable);
 
 			File resultFile = new File(reportsDirectory, RESULT_FILE);
 

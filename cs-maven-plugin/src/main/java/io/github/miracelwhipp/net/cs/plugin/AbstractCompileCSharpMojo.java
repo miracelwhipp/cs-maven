@@ -35,13 +35,6 @@ public abstract class AbstractCompileCSharpMojo extends AbstractNetMojo {
 	@Parameter(defaultValue = "false")
 	protected boolean unsafe;
 
-	/**
-	 * This parameter defines a wrapper process that provides a .net runtime e.g. mono. Leave empty to
-	 * omit using mono.
-	 */
-	@Parameter(property = "net.runtime.wrapper.executable")
-	protected File runtimeWrapperExecutable;
-
 	protected File compile(
 			File workingDirectory,
 			File csSourceDirectory,
