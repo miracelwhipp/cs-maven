@@ -37,14 +37,11 @@ public class NugetDownloadNetFrameworkProvider implements NetFrameworkProvider {
 				"NETStandard.Library", name, FRAMEWORK_VERSION.mavenVersion(), "", "dll");
 
 		return NuGetBootstrapDownloader.get(wagon, session, artifact);
-
-//		return null;
 	}
 
 	@Override
 	public FrameworkVersion getFrameworkVersion() {
-		return FRAMEWORK_VERSION;
 
-//		return null;
+		return FRAMEWORK_VERSION;
 	}
 }

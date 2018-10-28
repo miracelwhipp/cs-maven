@@ -50,7 +50,5 @@ public class NugetDownloadCSharpCompilerProvider implements CSharpCompilerProvid
 		File container = NuGetBootstrapDownloader.get(wagon, session, COMPILER_CONTAINER_ARTIFACT);
 
 		return result = Streams.unpackForFile(container, COMPILER_FILE);
-
-//		return null;
 	}
 }
