@@ -10,6 +10,7 @@ import org.apache.maven.wagon.authentication.AuthenticationException;
 import org.apache.maven.wagon.repository.Repository;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
+import org.codehaus.plexus.logging.Logger;
 
 /**
  * This {@link AbstractNugetWagon} is used only for downloading nuget dependencies of the cs-maven-plugin.
@@ -32,7 +33,15 @@ public class BootstrapNuGetWagon extends AbstractNugetWagon {
 	@Requirement
 	private NugetPackageDownloadManager downloadManager;
 
+	@Requirement
+	private Logger logger;
+
 	private boolean connected = false;
+
+	@Override
+	public Logger getLogger() {
+		return logger;
+	}
 
 	@Override
 	public Wagon getDelegate() {
