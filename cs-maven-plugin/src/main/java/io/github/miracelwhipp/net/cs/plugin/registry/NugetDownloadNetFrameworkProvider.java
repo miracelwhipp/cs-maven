@@ -36,13 +36,13 @@ public class NugetDownloadNetFrameworkProvider implements NetFrameworkProvider {
 	public File getFrameworkLibrary(String name) throws IOException {
 
 		NugetArtifact artifact = NugetArtifact.newInstance(
-				"NETStandard.Library", name, getFrameworkVersion().mavenVersion(), "", "dll");
+				"NETStandard.Library", name, getDefaultFrameworkVersion().mavenVersion(), "", "dll");
 
 		return NuGetBootstrapDownloader.get(wagon, session, artifact);
 	}
 
 	@Override
-	public FrameworkVersion getFrameworkVersion() {
+	public FrameworkVersion getDefaultFrameworkVersion() {
 
 		return currentFrameworkVersion;
 	}

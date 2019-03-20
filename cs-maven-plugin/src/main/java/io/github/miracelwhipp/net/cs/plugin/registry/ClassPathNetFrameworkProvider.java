@@ -27,11 +27,11 @@ public class ClassPathNetFrameworkProvider implements NetFrameworkProvider {
 	public File getFrameworkLibrary(String name) throws IOException {
 
 		return Streams.getResourceFile(
-				ClassPathNetFrameworkProvider.class, "build/" + getFrameworkVersion().versionedToken() + "/ref", name, "dll");
+				ClassPathNetFrameworkProvider.class, "build/" + getDefaultFrameworkVersion().versionedToken() + "/ref", name, "dll");
 	}
 
 	@Override
-	public FrameworkVersion getFrameworkVersion() {
+	public FrameworkVersion getDefaultFrameworkVersion() {
 
 		try {
 
