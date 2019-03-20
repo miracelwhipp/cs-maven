@@ -14,23 +14,31 @@ import java.io.IOException;
 
 /**
  * This {@link NetFrameworkProvider} downloads the framework file directly using the nuget download manager
- * also used by the maven dependency mechanism.
+ * also used by the maven dependency mechanism. It uses a fixed version. sub classes may override the version
  *
  * @author miracelwhipp
  */
-@Component(role = NetFrameworkProvider.class, hint = "default", instantiationStrategy = "singleton")
-public class NugetDownloadNetFrameworkProvider implements NetFrameworkProvider {
+@Component(role = NetFrameworkProvider.class, hint = "fixed", instantiationStrategy = "singleton")
+public class FixedVersionNugetDownloadNetFrameworkProvider implements NetFrameworkProvider {
 
 	public static final FrameworkVersion DEFAULT_FRAMEWORK_VERSION =
 			FrameworkVersion.newInstance(".NETStandard", "netstandard", 2, 0, 3);
 
-	private FrameworkVersion currentFrameworkVersion = DEFAULT_FRAMEWORK_VERSION;
+	private final FrameworkVersion frameworkVersion;
 
 	@Requirement
 	private BootstrapNuGetWagon wagon;
 
 	@Requirement
 	private MavenSession session;
+
+	public FixedVersionNugetDownloadNetFrameworkProvider() {
+		this(DEFAULT_FRAMEWORK_VERSION);
+	}
+
+	public FixedVersionNugetDownloadNetFrameworkProvider(FrameworkVersion frameworkVersion) {
+		this.frameworkVersion = frameworkVersion;
+	}
 
 	@Override
 	public File getFrameworkLibrary(String name) throws IOException {
@@ -44,6 +52,6 @@ public class NugetDownloadNetFrameworkProvider implements NetFrameworkProvider {
 	@Override
 	public FrameworkVersion getFrameworkVersion() {
 
-		return currentFrameworkVersion;
+		return frameworkVersion;
 	}
 }
