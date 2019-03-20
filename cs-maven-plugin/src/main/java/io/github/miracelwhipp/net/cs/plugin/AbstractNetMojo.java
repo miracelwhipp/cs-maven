@@ -3,12 +3,15 @@ package io.github.miracelwhipp.net.cs.plugin;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import io.github.miracelwhipp.net.common.DependencyProvider;
+import io.github.miracelwhipp.net.cs.plugin.compile.NugetDownloadCSharpCompilerProvider;
+import io.github.miracelwhipp.net.cs.plugin.registry.FixedVersionNugetDownloadNetFrameworkProvider;
 import io.github.miracelwhipp.net.provider.CSharpCompilerProvider;
+import io.github.miracelwhipp.net.provider.FrameworkVersion;
 import io.github.miracelwhipp.net.provider.NetFrameworkProvider;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -44,11 +47,9 @@ public abstract class AbstractNetMojo extends AbstractMojo {
 	@Parameter(defaultValue = "false", property = "cs.assembly.com.visible")
 	protected boolean comVisible;
 
-	@Parameter(defaultValue = "default")
-	protected String netFrameworkRoleHint;
+//	@Component
+//	protected NetFrameworkProvider frameworkProvider;
 
-	@Component
-	protected NetFrameworkProvider frameworkProvider;
 	/**
 	 * This parameter defines a wrapper process that provides a .net runtime e.g. mono. Leave empty to
 	 * omit using mono.
@@ -56,8 +57,8 @@ public abstract class AbstractNetMojo extends AbstractMojo {
 	@Parameter(property = "net.runtime.wrapper.executable")
 	protected File runtimeWrapperExecutable;
 
-	@Parameter(defaultValue = "default")
-	private String compilerRoleHint;
+//	@Parameter(defaultValue = "default")
+//	private String compilerRoleHint;
 
 	@Parameter(readonly = true, defaultValue = "${project.build.directory}")
 	protected File workingDirectory;
@@ -69,7 +70,10 @@ public abstract class AbstractNetMojo extends AbstractMojo {
 	private ProjectDependenciesResolver projectDependenciesResolver;
 
 	@Component
-	protected CSharpCompilerProvider compilerProvider;
+	protected BootstrapNuGetWagon wagon;
+
+	@Component
+	protected MavenSession session;
 
 	@Parameter(readonly = true, defaultValue = "${project.artifactId}")
 	private String outputFile;
@@ -77,10 +81,11 @@ public abstract class AbstractNetMojo extends AbstractMojo {
 	@Parameter
 	private String targetType;
 
-	public CSharpCompilerProvider getCompilerProvider() {
+	@Parameter(defaultValue = "netstandard2.0.3")
+	private String netFrameWorkVersion;
 
-		return compilerProvider;
-	}
+	@Parameter(defaultValue = "2.8.0")
+	private String compilerVersion;
 
 	protected List<Dependency> getDllDependencies(final Set<String> allowedScopes) throws DependencyResolutionException {
 
@@ -126,8 +131,13 @@ public abstract class AbstractNetMojo extends AbstractMojo {
 		return CSharpCompilerTargetType.fromString(target);
 	}
 
+	public CSharpCompilerProvider getCompilerProvider() {
+
+		return new NugetDownloadCSharpCompilerProvider(wagon, session, compilerVersion);
+	}
+
 	public NetFrameworkProvider getFrameworkProvider() {
 
-		return frameworkProvider;
+		return new FixedVersionNugetDownloadNetFrameworkProvider(wagon, session, FrameworkVersion.fromShortName(netFrameWorkVersion));
 	}
 }

@@ -12,7 +12,7 @@ import java.io.IOException;
  *
  * @author miracelwhipp
  */
-@Component(role = CSharpCompilerProvider.class, hint = "class-path", instantiationStrategy = "singleton")
+//@Component(role = CSharpCompilerProvider.class, hint = "class-path", instantiationStrategy = "singleton")
 public class ClassPathCSharpCompilerProvider implements CSharpCompilerProvider {
 
 	private File csharpCompiler;

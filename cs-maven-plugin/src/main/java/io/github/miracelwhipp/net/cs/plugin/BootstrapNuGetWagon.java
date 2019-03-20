@@ -3,6 +3,7 @@ package io.github.miracelwhipp.net.cs.plugin;
 
 import io.github.miracelwhipp.net.nuget.plugin.AbstractNugetWagon;
 import io.github.miracelwhipp.net.nuget.plugin.NugetPackageDownloadManager;
+import io.github.miracelwhipp.net.provider.FrameworkVersion;
 import io.github.miracelwhipp.net.provider.NetFrameworkProvider;
 import org.apache.maven.wagon.ConnectionException;
 import org.apache.maven.wagon.Wagon;
@@ -44,6 +45,11 @@ public class BootstrapNuGetWagon extends AbstractNugetWagon {
 	}
 
 	@Override
+	protected FrameworkVersion getDefaultFrameworkVersion() {
+		return FrameworkVersion.fromShortName("netstandard2.0.3");
+	}
+
+	@Override
 	public Wagon getDelegate() {
 
 		if (connected) {
@@ -77,14 +83,6 @@ public class BootstrapNuGetWagon extends AbstractNugetWagon {
 	@Override
 	public NugetPackageDownloadManager getDownloadManager() {
 		return downloadManager;
-
-//		return null;
-	}
-
-	@Override
-	public NetFrameworkProvider getFrameworkProvider() {
-
-		return frameworkProvider;
 
 //		return null;
 	}

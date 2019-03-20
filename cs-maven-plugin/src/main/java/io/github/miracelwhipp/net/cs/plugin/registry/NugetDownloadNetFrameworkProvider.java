@@ -18,7 +18,7 @@ import java.io.IOException;
  *
  * @author miracelwhipp
  */
-@Component(role = NetFrameworkProvider.class, hint = "default", instantiationStrategy = "singleton")
+//@Component(role = NetFrameworkProvider.class, hint = "default", instantiationStrategy = "singleton")
 public class NugetDownloadNetFrameworkProvider implements NetFrameworkProvider {
 
 	public static final FrameworkVersion DEFAULT_FRAMEWORK_VERSION =

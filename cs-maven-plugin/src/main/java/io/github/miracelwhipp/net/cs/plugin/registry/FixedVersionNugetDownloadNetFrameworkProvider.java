@@ -6,8 +6,6 @@ import io.github.miracelwhipp.net.nuget.plugin.NugetArtifact;
 import io.github.miracelwhipp.net.provider.FrameworkVersion;
 import io.github.miracelwhipp.net.provider.NetFrameworkProvider;
 import org.apache.maven.execution.MavenSession;
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,26 +16,24 @@ import java.io.IOException;
  *
  * @author miracelwhipp
  */
-@Component(role = NetFrameworkProvider.class, hint = "fixed", instantiationStrategy = "singleton")
+//@Component(role = NetFrameworkProvider.class, hint = "fixed", instantiationStrategy = "singleton")
 public class FixedVersionNugetDownloadNetFrameworkProvider implements NetFrameworkProvider {
 
 	public static final FrameworkVersion DEFAULT_FRAMEWORK_VERSION =
 			FrameworkVersion.newInstance(".NETStandard", "netstandard", 2, 0, 3);
 
 	private final FrameworkVersion frameworkVersion;
+	private final BootstrapNuGetWagon wagon;
+	private final MavenSession session;
 
-	@Requirement
-	private BootstrapNuGetWagon wagon;
-
-	@Requirement
-	private MavenSession session;
-
-	public FixedVersionNugetDownloadNetFrameworkProvider() {
-		this(DEFAULT_FRAMEWORK_VERSION);
+	public FixedVersionNugetDownloadNetFrameworkProvider(BootstrapNuGetWagon wagon, MavenSession session) {
+		this(wagon, session, DEFAULT_FRAMEWORK_VERSION);
 	}
 
-	public FixedVersionNugetDownloadNetFrameworkProvider(FrameworkVersion frameworkVersion) {
+	public FixedVersionNugetDownloadNetFrameworkProvider(BootstrapNuGetWagon wagon, MavenSession session, FrameworkVersion frameworkVersion) {
 		this.frameworkVersion = frameworkVersion;
+		this.wagon = wagon;
+		this.session = session;
 	}
 
 	@Override
