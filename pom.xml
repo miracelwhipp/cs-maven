@@ -31,7 +31,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xunit.version>2.4.0</xunit.version>
-		<net.common.version>2.1-SNAPSHOT</net.common.version>
+		<net.common.version>2.1</net.common.version>
 	</properties>
 
 	<scm>
