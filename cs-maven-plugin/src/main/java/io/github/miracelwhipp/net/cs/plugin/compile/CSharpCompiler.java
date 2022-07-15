@@ -9,6 +9,10 @@ import org.apache.maven.plugin.logging.Log;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -85,69 +89,13 @@ public class CSharpCompiler {
 
 			processBuilder.command().add("/out:" + outFileName);
 
-			boolean sourceFilesExistent = false;
+			String responseFile = buildResponseFile();
 
-			for (File csSourceDirectory : sourceFiles.getCsSourceDirectories()) {
-
-				if (!csSourceDirectory.exists()) {
-
-					continue;
-				}
-
-				Collection<File> files = FileUtils.listFiles(csSourceDirectory, new String[]{"cs"}, true);
-
-				for (File file : files) {
-
-					processBuilder.command().add(file.getAbsolutePath());
-					sourceFilesExistent = true;
-				}
-			}
-
-			if (!sourceFilesExistent) {
-
+			if (responseFile == null) {
 				return null;
 			}
 
-			List<String> frameworkLibraries = new ArrayList<>();
-
-			if (sourceFiles.getFrameworkReferences() != null) {
-				frameworkLibraries.addAll(sourceFiles.getFrameworkReferences());
-			}
-
-			for (String frameworkLibrary : frameworkLibraries) {
-
-				File library = frameworkProvider.getFrameworkLibrary(frameworkLibrary);
-
-				if (library == null) {
-
-					throw new MojoFailureException("cannot find framework library " + frameworkLibrary);
-				}
-
-				library = DependencyProvider.provideFile(library, null, sourceFiles.getWorkingDirectory());
-
-				processBuilder.command().add("/reference:" + library.getAbsolutePath());
-			}
-
-			for (File referenceFile : sourceFiles.getReferenceFiles()) {
-
-				if (referenceFile.getName().endsWith(".netmodule") || referenceFile.getName().endsWith(".obj")) {
-
-					processBuilder.command().add("/addmodule:" + referenceFile.getAbsolutePath());
-
-				} else {
-
-					processBuilder.command().add("/reference:" + referenceFile.getAbsolutePath());
-				}
-			}
-
-			for (String resource : sourceFiles.getResources()) {
-				processBuilder.command().add("/resource:" + resource);
-			}
-
-			if (sourceFiles.getKeyFile() != null) {
-
-				processBuilder.command().add("/keyfile:" + sourceFiles.getKeyFile().getAbsolutePath());
-			}
+			processBuilder.command().add("@" + responseFile);
 
 			logger.debug("executing csc:");
 			for (String arg : processBuilder.command()) {
@@ -174,5 +122,84 @@ public class CSharpCompiler {
 
 			throw new MojoFailureException(e.getMessage(), e);
 		}
+	}
+
+	private String buildResponseFile() throws IOException, MojoFailureException {
+
+		StringBuilder responseFileContent = new StringBuilder();
+
+		boolean sourceFilesExistent = false;
+
+		for (File csSourceDirectory : sourceFiles.getCsSourceDirectories()) {
+
+			if (!csSourceDirectory.exists()) {
+
+				continue;
+			}
+
+			Collection<File> files = FileUtils.listFiles(csSourceDirectory, new String[]{"cs"}, true);
+
+			for (File file : files) {
+
+				responseFileContent.append(file.getAbsolutePath()).append("\n");
+				sourceFilesExistent = true;
+			}
+		}
+
+		if (!sourceFilesExistent) {
+
+			return null;
+		}
+
+		List<String> frameworkLibraries = new ArrayList<>();
+
+		if (sourceFiles.getFrameworkReferences() != null) {
+			frameworkLibraries.addAll(sourceFiles.getFrameworkReferences());
+		}
+
+		for (String frameworkLibrary : frameworkLibraries) {
+
+			File library = frameworkProvider.getFrameworkLibrary(frameworkLibrary);
+
+			if (library == null) {
+
+				throw new MojoFailureException("cannot find framework library " + frameworkLibrary);
+			}
+
+			library = DependencyProvider.provideFile(library, null, sourceFiles.getWorkingDirectory());
+
+			responseFileContent.append("/reference:").append(library.getAbsolutePath()).append("\n");
+		}
+
+		for (File referenceFile : sourceFiles.getReferenceFiles()) {
+
+			if (referenceFile.getName().endsWith(".netmodule") || referenceFile.getName().endsWith(".obj")) {
+
+				responseFileContent.append("/addmodule:").append(referenceFile.getAbsolutePath()).append("\n");
+
+			} else {
+
+				responseFileContent.append("/reference:").append(referenceFile.getAbsolutePath()).append("\n");
+			}
+		}
+
+		for (String resource : sourceFiles.getResources()) {
+			responseFileContent.append("/resource:").append(resource).append("\n");
+		}
+
+		if (sourceFiles.getKeyFile() != null) {
+
+			responseFileContent.append("/keyfile:").append(sourceFiles.getKeyFile().getAbsolutePath()).append("\n");
+		}
+
+		Path path = new File(sourceFiles.getWorkingDirectory(), "sources.rsp").toPath();
+
+		Files.write(path,
+				responseFileContent.toString().getBytes(StandardCharsets.UTF_8),
+				StandardOpenOption.CREATE,
+				StandardOpenOption.TRUNCATE_EXISTING
+		);
+
+		return path.toString();
 	}
 }
